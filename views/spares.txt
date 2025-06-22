@@ -1,0 +1,5 @@
+<!-- <%-- Optional: <%- include('partials/footer') %> --%> -->
+
+  <main class="max-w-6xl mx-auto p-6">
+    <%- body %>
+  </main> 

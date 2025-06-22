@@ -1,0 +1,22 @@
+<nav class="bg-white shadow flex items-center justify-between px-6 py-2">
+  <div class="flex items-center gap-6">
+    <a href="/" class="text-lg font-semibold">Blindate</a>
+    <a href="/about" class="text-lg">About</a>
+    <a href="/notifications" class="text-lg">Notifications</a>
+  </div>
+  <div class="relative">
+    <button id="avatarBtn" class="w-10 h-10 rounded-full overflow-hidden">
+      <img src="https://i.pravatar.cc/30" alt="User" class="w-10 h-10"/>
+    </button>
+    <div id="dropdownMenu" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow hidden">
+      <a href="/settings" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sign out</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const avatarBtn = document.getElementById('avatarBtn');
+  const dropdownMenu = document.getElementById('dropdownMenu');
+  avatarBtn.addEventListener('click', () => dropdownMenu.classList.toggle('hidden'));
+</script>
