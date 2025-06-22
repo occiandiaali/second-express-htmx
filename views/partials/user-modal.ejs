@@ -5,3 +5,48 @@
     <%= user.status %>
   </span>
 </p>
+<aside>
+  <button class="bg-pink-500 rounded w-40 h-10 p-2" onclick="handleBooking()">Ask <%= user.username %> out</button>
+</aside>
+
+<script>
+  function generateRoomId() {
+    return Math.random().toString(36).substring(2, 15);
+  }
+  function getTodayDate() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return today;
+  }
+  function getEnvironment() {
+    const values = [
+      "https://playcanv.as/p/Giqae3Dm/",
+      "https://playcanv.as/p/yQ1cNsmW/",
+      "https://playcanv.as/p/c1o59wX5/",
+      "https://playcanv.as/p/Giqae3Dm/",
+      "https://playcanv.as/p/yQ1cNsmW/",
+      "https://playcanv.as/p/c1o59wX5/",
+    ],
+        valueToUse = values[Math.floor(Math.random() * values.length)];
+    // do something with the selected value
+    return valueToUse;
+}
+  const bookings = [];
+  function handleBooking() {
+    const roomId = generateRoomId();
+    const theDate = getTodayDate();
+    const theEnv = getEnvironment();
+
+   // let storedString = `${theDate} Room:${roomId} - ${theEnv}`;
+  // const htmlink = `<a href="${theEnv}" class="text-blue-500 underline hover:text-blue-700" target="_blank">${theEnv}</a>`;
+    let booking = `RoomID: ${roomId} on ${theDate} at ${theEnv}`;
+    bookings.push(booking);
+    console.log("Bookings array ", bookings);
+    localStorage.setItem('bookings', JSON.stringify(bookings));
+    window.alert(`Nice! You've booked ${booking}. Check the Notifications tab.`)
+  }
+</script>
