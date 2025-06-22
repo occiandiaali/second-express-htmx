@@ -1,2 +1,73 @@
-<h1 class="text-2xl font-bold mb-4">Notifications</h1>
-<p>You currently have no new notifications.</p>
+<h1 class="text-2xl font-bold mb-4">Your Bookings</h1>
+
+<section>
+  <ul id="notifications" class="space-y-2"></ul>
+  <p id="no-info-p">You currently have no new notifications.</p>
+  <button onclick="clearStorage()" class="bg-red-500 w-24 h-10 mt-6 p-2 rounded">Clear</button>
+</section>
+<!-- Modal -->
+<div id="modal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white w-full h-full relative">
+    <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-300 px-3 py-1 rounded">Close</button>
+    <iframe id="modal-iframe" src="" class="w-full h-full border-none"></iframe>
+  </div>
+</div>
+
+<script>
+    function onWindowLoaded() {
+        const list = JSON.parse(localStorage.getItem('bookings')) || [];
+        const ul = document.getElementById('notifications');
+
+        if (list.length > 0) {
+            document.getElementById('no-info-p').style.display = "none";   
+            list.forEach(item => {
+            const li = document.createElement('li');
+            li.className = "flex items-center space-x-4"; // list item layout
+            li.textContent = item;
+
+            const acceptBtn = document.createElement('button');
+            acceptBtn.textContent = 'Accept';
+            acceptBtn.className = "ml-auto bg-green-500 text-white px-3 py-1 cursor-pointer rounded hover:bg-green-600 transition";
+            acceptBtn.onclick = () => {
+                const matches = item.match(/\bhttps?:\/\/\S+/gi);
+                //alert(`${matches} accepted`);
+                acceptNotification(matches);
+            }
+
+            const rejectBtn = document.createElement('button');
+            rejectBtn.textContent = 'Reject';
+            rejectBtn.className = "bg-red-500 text-white px-3 py-1 cursor-pointer rounded hover:bg-red-600 transition";
+            rejectBtn.onclick = () => alert(`${item} rejected`);
+
+            li.appendChild(acceptBtn);
+            li.appendChild(rejectBtn);
+
+            ul.appendChild(li);
+        });
+        } else {
+            document.getElementById('no-info-p').style.display = "block";
+        }
+    }
+
+    window.onload = onWindowLoaded();
+    
+
+    function clearStorage() {
+        localStorage.removeItem("bookings")
+    }
+
+    function acceptNotification(url) {
+    document.getElementById('modal-iframe').src = url;
+    document.getElementById('modal').classList.remove('hidden');
+    }
+
+//   function rejectNotification(index) {
+//     const li = document.getElementById(`notification-${index}`);
+//     li.querySelector('.notification-text').classList.add('line-through', 'text-gray-500');
+//   }
+
+  function closeModal() {
+    document.getElementById('modal').classList.add('hidden');
+    document.getElementById('modal-iframe').src = '';
+  }
+</script>
