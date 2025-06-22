@@ -3,6 +3,7 @@
     <a href="/" class="text-lg font-semibold">Blindate</a>
     <a href="/about" class="text-lg">About</a>
     <a href="/notifications" class="text-lg">Notifications</a>
+    <!-- <a href="/notifications" hx-get="/notifications" hx-target="#mainContent" hx-push-url="true" hx-swap="innerHTML" class="text-lg">Notifications</a> -->
   </div>
   <div class="relative">
     <button id="avatarBtn" class="w-10 h-10 rounded-full overflow-hidden">
@@ -19,4 +20,10 @@
   const avatarBtn = document.getElementById('avatarBtn');
   const dropdownMenu = document.getElementById('dropdownMenu');
   avatarBtn.addEventListener('click', () => dropdownMenu.classList.toggle('hidden'));
+// document.addEventListener('click', (e) => {
+//   if (e.target.id === 'avatarBtn') {
+//     document.getElementById('dropdownMenu')?.classList.toggle('hidden');
+//   }
+// });
+
 </script>

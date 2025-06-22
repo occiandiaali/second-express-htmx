@@ -32,7 +32,7 @@ module.exports = [
         {
           id: 6,
           username: "Caroline",
-          avatar: "https://i.pravatar.cc/100?img=6",
+          avatar: "https://i.pravatar.cc/50?img=6",
           status: "online",
         },
         {
@@ -50,7 +50,31 @@ module.exports = [
         {
           id: 9,
           username: "Hauwa",
-          avatar: "https://i.pravatar.cc/100?img=9",
+          avatar: "https://i.pravatar.cc/20?img=9",
+          status: "online",
+        },
+        {
+          id: 10,
+          username: "Alice",
+          avatar: "https://i.pravatar.cc/100?img=10",
+          status: "online",
+        },
+        {
+          id: 11,
+          username: "Bob",
+          avatar: "https://i.pravatar.cc/100?img=11",
+          status: "offline",
+        },
+        {
+          id: 12,
+          username: "Carol",
+          avatar: "https://i.pravatar.cc/100?img=12",
+          status: "online",
+        },
+        {
+          id: 13,
+          username: "Yemisi",
+          avatar: "https://i.pravatar.cc/100?img=13",
           status: "online",
         },
 ];
