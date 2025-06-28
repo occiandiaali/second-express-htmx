@@ -1,10 +1,10 @@
 <div id="userGridContainer">
   <!-- users grid -->
-  <div class="grid grid-cols-5 gap-4 p-6 transition-opacity duration-300 opacity-0"
+  <div class="grid gap-4 p-6 transition-opacity duration-300 opacity-0"
   hx-on="htmx:afterSwap: this.classList.remove('opacity-0')">
     <% users.forEach(user => { %>
         <div class="bg-white p-4 rounded shadow text-center">
-            <img src="<%= user.avatar %>" class="w-16 h-16 mx-auto rounded-full" />
+            <img src="<%= user.avatar %>" class="w-16 h-16 md:w-24 md:h-24 mx-auto rounded-full" />
             <h3 class="mt-2 font-semibold"><%= user.username %></h3>
             <button 
                 class="mt-2 text-blue-600 hover:text-blue-800"

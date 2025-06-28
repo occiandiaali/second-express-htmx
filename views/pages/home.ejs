@@ -1,15 +1,15 @@
-<div class="grid grid-cols-5 gap-4 p-6">
+<div class="grid sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 mt-14 gap-4 p-6">
 <% users.forEach(user => { %>    
     <div class="bg-white p-4 rounded-xl shadow text-center">
-    <img src="<%= user.avatar %>" class="w-16 h-16 mx-auto rounded-full" />
-    <h3 class="mt-2 font-semibold"><%= user.username %></h3>
+    <img src="<%= user.avatar %>" class="sm:w-8 sm:w-8 md:w-16 md:h-16 mx-auto rounded-full" />
+    <h3 class="mt-2 font-semibold md:text-base text-sm"><%= user.username %></h3>
     <button 
-        class="mt-2 text-blue-600 hover:text-blue-800"
+        class="mt-2 text-blue-600 hover:text-blue-800 text-sm"
         hx-get="/users/<%= user.id %>" 
         hx-target="#userModalContent" 
         hx-trigger="click" 
         hx-swap="innerHTML">
-        👁 <span class="text-[12px]"> View details</span>
+        👁 <span class="sm:text-sm text-[12px]"> View details</span>
     </button>
     </div>
 <% }) %>

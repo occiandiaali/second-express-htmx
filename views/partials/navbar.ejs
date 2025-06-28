@@ -1,15 +1,17 @@
-<nav class="bg-white shadow flex items-center justify-between px-6 py-2">
+<nav class="bg-white shadow flex items-center justify-between w-full px-6 py-1 fixed">
   <div class="flex items-center gap-6">
     <a href="/" class="text-lg font-semibold">Blindate</a>
-    <a href="/about" class="text-lg">About</a>
-    <a href="/notifications" class="text-lg">Notifications</a>
+    <a href="/about" class="hidden md:block text-lg">About</a>
+    <a href="/notifications" class="hidden md:block text-lg">Notifications</a>
     <!-- <a href="/notifications" hx-get="/notifications" hx-target="#mainContent" hx-push-url="true" hx-swap="innerHTML" class="text-lg">Notifications</a> -->
   </div>
   <div class="relative">
     <button id="avatarBtn" class="w-10 h-10 rounded-full overflow-hidden">
-      <img src="https://i.pravatar.cc/30" alt="User" class="w-10 h-10"/>
+      <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="User" class="w-10 h-10"/>
     </button>
     <div id="dropdownMenu" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow hidden">
+      <a href="/about" class="md:hidden sm:block px-4 py-2 hover:bg-gray-100">About</a>
+      <a href="/notifications" class="md:hidden sm:block px-4 py-2 hover:bg-gray-100">Notifications</a>
       <a href="/settings" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
       <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sign out</a>
     </div>

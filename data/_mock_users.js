@@ -2,7 +2,7 @@ module.exports = [
         {
           id: 1,
           username: "Alice",
-          avatar: "https://i.pravatar.cc/100?img=1",
+          avatar: "https://publicdomainvectors.org/tn_img/notabee.webp",
           status: "online",
         },
         {
@@ -14,19 +14,19 @@ module.exports = [
         {
           id: 3,
           username: "Carol",
-          avatar: "https://i.pravatar.cc/100?img=3",
+          avatar: "https://publicdomainvectors.org/tn_img/japanesedoctor.webp",
           status: "online",
         },
         {
           id: 4,
           username: "Yemisi",
-          avatar: "https://i.pravatar.cc/100?img=4",
+          avatar: "https://publicdomainvectors.org/tn_img/Cartoonhead7.webp",
           status: "online",
         },
         {
           id: 5,
           username: "Bola",
-          avatar: "https://i.pravatar.cc/100?img=5",
+          avatar: "https://publicdomainvectors.org/tn_img/FunDraw_dot_com_Cartoon_Cat_In_Rainbow_Socks.webp",
           status: "offline",
         },
         {
@@ -38,7 +38,7 @@ module.exports = [
         {
           id: 7,
           username: "Adanna",
-          avatar: "https://i.pravatar.cc/100?img=7",
+          avatar: "https://publicdomainvectors.org/tn_img/googley-eye-birds.webp",
           status: "offline",
         },
         {
@@ -50,7 +50,7 @@ module.exports = [
         {
           id: 9,
           username: "Hauwa",
-          avatar: "https://i.pravatar.cc/20?img=9",
+          avatar: "https://publicdomainvectors.org/tn_img/Devil_001_Head_Cartoon.webp",
           status: "online",
         },
         {
@@ -73,6 +73,84 @@ module.exports = [
         },
         {
           id: 13,
+          username: "Yemisi",
+          avatar: "https://i.pravatar.cc/100?img=13",
+          status: "online",
+        },
+                {
+          id: 14,
+          username: "Alice",
+          avatar: "https://publicdomainvectors.org/tn_img/notabee.webp",
+          status: "online",
+        },
+        {
+          id: 15,
+          username: "Bob",
+          avatar: "https://i.pravatar.cc/100?img=2",
+          status: "offline",
+        },
+        {
+          id: 16,
+          username: "Carol",
+          avatar: "https://publicdomainvectors.org/tn_img/japanesedoctor.webp",
+          status: "online",
+        },
+        {
+          id: 17,
+          username: "Yemisi",
+          avatar: "https://publicdomainvectors.org/tn_img/Cartoonhead7.webp",
+          status: "online",
+        },
+        {
+          id: 18,
+          username: "Bola",
+          avatar: "https://publicdomainvectors.org/tn_img/FunDraw_dot_com_Cartoon_Cat_In_Rainbow_Socks.webp",
+          status: "offline",
+        },
+        {
+          id: 19,
+          username: "Caroline",
+          avatar: "https://i.pravatar.cc/50?img=6",
+          status: "online",
+        },
+        {
+          id: 20,
+          username: "Adanna",
+          avatar: "https://publicdomainvectors.org/tn_img/googley-eye-birds.webp",
+          status: "offline",
+        },
+        {
+          id: 21,
+          username: "Nnamdi",
+          avatar: "https://i.pravatar.cc/100?img=8",
+          status: "offline",
+        },
+        {
+          id: 22,
+          username: "Hauwa",
+          avatar: "https://publicdomainvectors.org/tn_img/Devil_001_Head_Cartoon.webp",
+          status: "online",
+        },
+        {
+          id: 23,
+          username: "Alice",
+          avatar: "https://i.pravatar.cc/100?img=10",
+          status: "online",
+        },
+        {
+          id: 24,
+          username: "Bob",
+          avatar: "https://i.pravatar.cc/100?img=11",
+          status: "offline",
+        },
+        {
+          id: 25,
+          username: "Carol",
+          avatar: "https://i.pravatar.cc/100?img=12",
+          status: "online",
+        },
+        {
+          id: 26,
           username: "Yemisi",
           avatar: "https://i.pravatar.cc/100?img=13",
           status: "online",
