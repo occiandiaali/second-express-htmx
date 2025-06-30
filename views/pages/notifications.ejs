@@ -16,7 +16,8 @@
 <div id="canvasModal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center z-50">
   <div class="bg-white w-full h-full relative">
     <p class="absolute top-4 left-12 text-green-400 text-4xl" id="timerP"></p>
-    <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-300 px-3 py-1 rounded">Close</button>
+    <p class="absolute top-12 left-12 text-orange-400 text-xl" id="roomP"></p>
+    <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-300 px-3 py-1 rounded">Exit</button>
     <canvas id="renderCanvas" class="w-full h-full border-none"></canvas>
   </div>
 </div>
@@ -55,13 +56,30 @@ class BabylonRoom {
         groundMaterial.backFaceCulling = false;
         ground.material = groundMaterial;
 
+        const box = BABYLON.MeshBuilder.CreateBox("box", {size: 1}); //unit cube
+        box.checkCollisions = true;    
+        const boxMat = new BABYLON.StandardMaterial("boxMat");
+        boxMat.diffuseTexture = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/floor.png");
+        box.scaling = new BABYLON.Vector3(1, 1, 1);
+        box.position = new BABYLON.Vector3(5.4, 0.5, 3);
+                box.material = boxMat;
+            
+            const roof = BABYLON.MeshBuilder.CreateCylinder("roof", {diameter: 1.3, height: 1.2, tessellation: 3});
+        roof.scaling.x = 0.75;
+        roof.rotation.z = Math.PI / 2;
+                roof.position = new BABYLON.Vector3(5.4, 1.22, 3);
+        //roof.position.y = 1.22;
+          const roofMat = new BABYLON.StandardMaterial("roofMat");
+        roofMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/roof.jpg", scene);
+                roof.material = roofMat;
+
         return scene;
     }
 }
 
   // const renderCanvas = document.getElementById('renderCanvas');
   // let roomScene = new BabylonRoom(renderCanvas, "xX_99-Z0", "brown", "5");
-
+  const inputMap = {}; // For player movement
   let roomInstance;
 
   window.addEventListener("DOMContentLoaded", () => {
@@ -99,9 +117,39 @@ class BabylonRoom {
               let timer = item[2];
 
               document.getElementById("timerP").innerText = timer;
+              document.getElementById("roomP").innerText = roomId;
 
               roomInstance = new BabylonRoom(canvas, roomId, room, timer);
               const scene = roomInstance.createScene()
+              const cube = BABYLON.MeshBuilder.CreateBox("cube", { size: 0.5 }, scene);
+              cube.position.set(1, 0.25, -2);
+              cube.checkCollisions = true;
+              const material = new BABYLON.StandardMaterial("cubeMaterial", scene);
+              material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+              cube.material = material;
+              scene.registerBeforeRender(() => {
+                const speed = 0.1;
+                if (inputMap["w"]) {
+                    cube.moveWithCollisions(new BABYLON.Vector3(0, 0, speed));
+                }
+                if (inputMap["s"]) {
+                    cube.moveWithCollisions(new BABYLON.Vector3(0, 0, -speed));
+                }
+                if (inputMap["a"]) {
+                    cube.moveWithCollisions(new BABYLON.Vector3(-speed, 0, 0));
+                }
+                if (inputMap["d"]) {
+                    cube.moveWithCollisions(new BABYLON.Vector3(speed, 0, 0));
+                }
+              });
+
+              scene.actionManager = new BABYLON.ActionManager(scene);
+              scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {
+                  inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+              }));
+              scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
+                  inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+              }));
 
               const engine = scene.getEngine();
               engine.runRenderLoop(() => scene.render());
