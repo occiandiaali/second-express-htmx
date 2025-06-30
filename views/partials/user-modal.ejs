@@ -1,7 +1,8 @@
 <div class="grid grid-cols-2">
 <aside>
 <h2 class="text-xl font-bold mb-2"><%= user.username %></h2>
-<img src="<%= user.avatar %>" class="w-20 h-20 rounded-full mb-2" />
+<img src="<%= user.avatar %>" class="w-20 h-20 rounded-full mb-2"/>
+<img src="/images/megaphone1.jpg" alt="megaphone" class="w-6 h-6 cursor-pointer" onclick="userSpeech(<% user.username %>)" />
 <p class="mb-4"> 
   <span class="<%= user.status === 'online' ? 'text-green-500' : 'text-gray-400' %>">
     <%= user.status %>
@@ -37,6 +38,11 @@
 </div>
 
 <script>
+  function userSpeech(u) {
+    let user = u;
+    window.alert(user+" is speaking..")
+  }
+
   function generateRoomId() {
     return Math.random().toString(36).substring(2, 15);
   }
