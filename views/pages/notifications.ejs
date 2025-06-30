@@ -6,16 +6,71 @@
   <button onclick="clearStorage()" class="bg-red-500 w-24 h-10 mt-6 p-2 rounded">Clear</button>
 </section>
 <!-- Modal -->
-<div id="modal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center z-50">
+<!-- <div id="modal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center z-50">
   <div class="bg-white w-full h-full relative">
     <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-300 px-3 py-1 rounded">Close</button>
     <iframe id="modal-iframe" src="" class="w-full h-full border-none"></iframe>
   </div>
+</div> -->
+<!-- Canvas Modal -->
+<div id="canvasModal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white w-full h-full relative">
+    <p class="absolute top-4 left-12 text-green-400 text-4xl" id="timerP"></p>
+    <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-300 px-3 py-1 rounded">Close</button>
+    <canvas id="renderCanvas" class="w-full h-full border-none"></canvas>
+  </div>
 </div>
+<script src="https://cdn.babylonjs.com/babylon.js"></script>
+<script type="module">
+class BabylonRoom {
+    roomId;
+    room;
+    timer;
+    canvas;
 
-<script>
+    constructor(canvas, roomId, room, timer) {
+        this.canvas = canvas;
+        this.roomId = roomId;
+        this.room = room;
+        this.timer = timer;
+    }
+
+    createScene() {
+        const engine = new BABYLON.Engine(this.canvas, true);
+        const scene = new BABYLON.Scene(engine);
+        scene.gravity = true;
+        const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new BABYLON.Vector3(0, 0, 0), scene);
+        camera.attachControl(this.canvas, true);
+        const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
+         light.intensity = 0.5;
+
+    // Create a directional light
+        const directionalLight = new BABYLON.DirectionalLight("dirLight", new BABYLON.Vector3(-1, -2, -1), scene);
+
+        // Set light intensity
+        directionalLight.intensity = 1.0;
+        const ground = BABYLON.MeshBuilder.CreateGround("ground", {height: 15, width: 15, subdivisions: 10});
+        const groundMaterial = new BABYLON.StandardMaterial("groundMaterial");
+        groundMaterial.diffuseColor = this.room === "babylon-3rD" ? new BABYLON.Color3.FromHexString("#00ff00") : this.room === "threejs-fpm" ? new BABYLON.Color3.FromHexString("#ff0000") : new BABYLON.Color3.FromHexString("#0000ff");
+        groundMaterial.backFaceCulling = false;
+        ground.material = groundMaterial;
+
+        return scene;
+    }
+}
+
+  // const renderCanvas = document.getElementById('renderCanvas');
+  // let roomScene = new BabylonRoom(renderCanvas, "xX_99-Z0", "brown", "5");
+
+  let roomInstance;
+
+  window.addEventListener("DOMContentLoaded", () => {
+    onWindowLoaded();
+  });
+
     function onWindowLoaded() {
         const list = JSON.parse(localStorage.getItem('bookings')) || [];
+        console.log("Loaded List: ", list);
         const ul = document.getElementById('notifications');
 
         if (list.length > 0) {
@@ -23,15 +78,33 @@
             list.forEach(item => {
             const li = document.createElement('li');
             li.className = "flex items-center space-x-4"; // list item layout
-            li.textContent = item;
+          //  str += item+" ";
+            li.textContent = item;//str.split(' ', 4);
 
             const acceptBtn = document.createElement('button');
             acceptBtn.textContent = 'Accept';
             acceptBtn.className = "ml-auto bg-green-500 text-white px-3 py-1 cursor-pointer rounded hover:bg-green-600 transition";
+            // acceptBtn.onclick = () => {
+            //     const matches = item.match(/\bhttps?:\/\/\S+/gi);
+            //     acceptNotification(matches);
+            // }
             acceptBtn.onclick = () => {
-                const matches = item.match(/\bhttps?:\/\/\S+/gi);
-                //alert(`${matches} accepted`);
-                acceptNotification(matches);
+            //  console.log(str.split(' ', 4))
+              document.getElementById('canvasModal').classList.remove('hidden');
+              const canvas = document.getElementById("renderCanvas");
+              console.log("Canvas?", canvas);  // Should NOT be null
+              console.log("Instance?", canvas instanceof HTMLCanvasElement);  // Should be true
+              let roomId = item[0];
+              let room = item[1];
+              let timer = item[2];
+
+              document.getElementById("timerP").innerText = timer;
+
+              roomInstance = new BabylonRoom(canvas, roomId, room, timer);
+              const scene = roomInstance.createScene()
+
+              const engine = scene.getEngine();
+              engine.runRenderLoop(() => scene.render());
             }
 
             const rejectBtn = document.createElement('button');
@@ -49,26 +122,32 @@
         }
     }
 
-    window.onload = onWindowLoaded();
-    
+  //  window.onload = onWindowLoaded();
 
-    function clearStorage() {
-        localStorage.removeItem("bookings");
-        window.location.assign("/");
-    }
-
-    function acceptNotification(url) {
-    document.getElementById('modal-iframe').src = url;
-    document.getElementById('modal').classList.remove('hidden');
-    }
+    // function acceptNotification(url) {
+    // document.getElementById('modal-iframe').src = url;
+    // document.getElementById('modal').classList.remove('hidden');
+    // }
 
 //   function rejectNotification(index) {
 //     const li = document.getElementById(`notification-${index}`);
 //     li.querySelector('.notification-text').classList.add('line-through', 'text-gray-500');
 //   }
 
-  function closeModal() {
-    document.getElementById('modal').classList.add('hidden');
-    document.getElementById('modal-iframe').src = '';
-  }
+  // function closeModal() {
+  //   document.getElementById('modal').classList.add('hidden');
+  //   document.getElementById('modal-iframe').src = '';
+  // }
+
+</script>
+<script>
+        function closeModal() {
+        document.getElementById('canvasModal').classList.add('hidden');
+      }
+    
+
+    function clearStorage() {
+        localStorage.removeItem("bookings");
+        window.location.assign("/");
+    }
 </script>

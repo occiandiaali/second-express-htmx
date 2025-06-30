@@ -14,5 +14,8 @@
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@babylonjs/core": "^8.14.0"
   }
 }

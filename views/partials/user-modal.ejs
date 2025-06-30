@@ -2,7 +2,7 @@
 <aside>
 <h2 class="text-xl font-bold mb-2"><%= user.username %></h2>
 <img src="<%= user.avatar %>" class="w-20 h-20 rounded-full mb-2"/>
-<img src="/images/megaphone1.jpg" alt="megaphone" class="w-6 h-6 cursor-pointer" onclick="userSpeech(<% user.username %>)" />
+<img src="/images/megaphone1.jpg" alt="megaphone" class="w-6 h-6 cursor-pointer" />
 <p class="mb-4"> 
   <span class="<%= user.status === 'online' ? 'text-green-500' : 'text-gray-400' %>">
     <%= user.status %>
@@ -11,7 +11,7 @@
 
   <button class="bg-orange-500 rounded w-36 h-10 p-2 text-white" onclick="handleBooking()">Ask <%= user.username %> out</button>
 </aside>  
-<aside class="mt-10">
+<!-- <aside class="mt-10">
   <label for="pet-select">Environment:</label>
 
 <select name="environment" id="env-select">
@@ -34,10 +34,35 @@
   <option value="10">10</option>
   <option value="15" disabled>15</option>
 </select>
+</aside> -->
+<aside class="mt-10">
+  <label for="pet-select">Environment:</label>
+
+<select name="environment" id="env-select">
+  <option value="">--Choose an option--</option>
+  <option value="babylon-3rD">3D 3rd Person</option>
+  <option value="babylon-3D">3D 1st Person</option>
+  <option value="threejs-cubes">Cubes 3js</option>
+  <option value="threejs-fpm">FPM 3js</option>
+  <option value="excalibur-rpg">2D RPG</option>
+  <option value="playcanvas-maze">3D Maze</option>
+</select>
+<br/>
+<hr/>
+<br/>
+  <label for="duration-select">Duration (mins):</label>
+
+<select name="duration" id="duration-select">
+  <option value="">--Choose an option--</option>
+  <option value="5">5</option>
+  <option value="10">10</option>
+  <option value="15" disabled>15</option>
+</select>
 </aside>
 </div>
 
 <script>
+  const booking = [];
   function userSpeech(u) {
     let user = u;
     window.alert(user+" is speaking..")
@@ -87,11 +112,12 @@
    // let storedString = `${theDate} Room:${roomId} - ${theEnv}`;
   // const htmlink = `<a href="${theEnv}" class="text-blue-500 underline hover:text-blue-700" target="_blank">${theEnv}</a>`;
    // let booking = `RoomID: ${roomId} on ${theDate} at ${theEnv}`;
-   let booking = `RoomID: ${roomId} on ${theDate} at ${selectedEnv} for ${selectedDuration} mins`;
-    bookings.push(booking);
+  // let booking = `RoomID: ${roomId} on ${theDate} at ${selectedEnv} for ${selectedDuration} mins`;
+  //  bookings.push(booking);
+    bookings.push([roomId, selectedEnv, selectedDuration, theDate]);
     console.log("Bookings array ", bookings);
     localStorage.setItem('bookings', JSON.stringify(bookings));
-    window.alert(`Nice! You've booked ${booking}. Check the Notifications tab.`);
+    window.alert(`Nice! You've booked ${bookings}. Check the Notifications tab.`);
     }
   }
 </script>
